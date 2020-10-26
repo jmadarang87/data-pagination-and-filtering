@@ -57,13 +57,30 @@ function showPage( list, pageParameter ) {
 
  }
 }
-showPage(data, 2)
+
 
 /*
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
-
+function addPagination( list ) {
+   const pages = Math.ceil( list.length / 9 );
+   const linkList = document.querySelector('.link-list');
+   linkList.innerHTML = '';
+   for ( let i = 1; i <= pages; i ++ ) {
+      const li = document.createElement('li');
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = i;
+      li.appendChild(button);
+      linkList.appendChild(li);
+      console.log(li);
+   }
+   console.log(pages);
+   console.log(linkList);
+}
 
 
 // Call functions
+showPage(data, 2);
+addPagination(data);
