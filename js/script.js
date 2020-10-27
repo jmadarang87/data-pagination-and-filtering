@@ -67,20 +67,35 @@ function addPagination( list ) {
    const pages = Math.ceil( list.length / 9 );
    const linkList = document.querySelector('.link-list');
    linkList.innerHTML = '';
-   for ( let i = 1; i <= pages; i ++ ) {
+   for ( let i = 1; i <= pages; i++ ) {
       const li = document.createElement('li');
       const button = document.createElement('button');
       button.type = 'button';
+      button.className = '';
       button.textContent = i;
       li.appendChild(button);
       linkList.appendChild(li);
-      console.log(li);
    }
-   console.log(pages);
-   console.log(linkList);
+ 
+   linkList.addEventListener( 'click', (e) => {
+      if ( e.target.tagName == 'BUTTON') {
+         const buttonTarget = e.target;
+         const newButtons = document.querySelectorAll('button');
+         const newPage = parseInt(buttonTarget.textContent);
+         for ( let i = 0; i < newButtons.length; i++ ) {
+            console.log(newButtons);
+            newButtons[i].className = '';
+         }
+         buttonTarget.className = 'active';
+         showPage( data, newPage);
+      }
+
+
+
+   })
 }
 
 
 // Call functions
-showPage(data, 2);
-addPagination(data);
+showPage( data , 1 );
+addPagination( data );
