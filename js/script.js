@@ -18,7 +18,11 @@ This function will create and insert/append the elements needed to display a "pa
 */
 // list parameter to represent student data and pageParameter to represent page number that will be passed
 
+
+
 const studentsPerPage = 9;
+
+
 function showPage( list, pageParameter ) {
  const startIndex = ( pageParameter * studentsPerPage ) - studentsPerPage;
  const endIndex = ( pageParameter * studentsPerPage) - 1;
@@ -26,32 +30,46 @@ function showPage( list, pageParameter ) {
  studentList.innerHTML = '';
  for ( let i = 0; i < list.length; i++ ) {
    if ( i >= startIndex && i <= endIndex ) {
+
+      
       let li = document.createElement('li');
-      let divStudent = document.createElement('div');
-      let img = document.createElement('img');
-      let h3 = document.createElement('h3');
-      let firstName = data[i].name.first;
-      let lastName = data[i].name.last;
-      let spanEmail = document.createElement('span');
-      let divJoined = document.createElement('div');
-      let spanDate = document.createElement('span');
       li.className = `student-item cf`;
-      divStudent.className = `student-details`;
+
+
+      let img = document.createElement('img');
       img.className = 'avatar';
+
       img.src = `${data[i].picture.large}`;
       img.alt = `Profile Picture`;
+
+      let h3 = document.createElement('h3');
+      const firstName = data[i].name.first;
+      const lastName = data[i].name.last;
+
       h3.innerHTML = `${firstName} ${lastName}`;
+
+      let spanEmail = document.createElement('span');
       spanEmail.className = `email`;
       spanEmail.innerHTML = `${data[i].email}`;
+
+      let divStudent = document.createElement('div');
+      divStudent.className = `student-details`;
       divStudent.appendChild(img);
       divStudent.appendChild(h3);
       divStudent.appendChild(spanEmail);
+
+
+      let divJoined = document.createElement('div');
       divJoined.className = `joined-details`;
+
+      let spanDate = document.createElement('span');
       spanDate.className = `date`;
       spanDate.innerHTML = `Joined ${data[i].registered.date}`
       divJoined.appendChild(spanDate);
+
       li.appendChild(divStudent);
       li.appendChild(divJoined);
+
       studentList.appendChild(li);
    }
 
@@ -71,7 +89,6 @@ function addPagination( list ) {
       const li = document.createElement('li');
       const button = document.createElement('button');
       button.type = 'button';
-      button.className = '';
       button.textContent = i;
       li.appendChild(button);
       linkList.appendChild(li);
@@ -89,9 +106,6 @@ function addPagination( list ) {
          buttonTarget.className = 'active';
          showPage( data, newPage);
       }
-
-
-
    })
 }
 
@@ -99,3 +113,23 @@ function addPagination( list ) {
 // Call functions
 showPage( data , 1 );
 addPagination( data );
+
+// add Search Component
+
+const header = document.querySelector('header');
+const label = document.createElement('label');
+const input = document.createElement('input');
+const buttonSearch = document.createElement('button');
+const img = document.createElement('img');
+input.id = 'search';
+input.placeholder='Search by name...';
+buttonSearch.type = 'button';
+img.src = "img/icn-search.svg";
+img.alt = "Search icon";
+label.type = "search";
+label.className = "student-search";
+buttonSearch.appendChild(img);
+label.appendChild(input);
+label.appendChild(buttonSearch);
+header.appendChild(label);
+
