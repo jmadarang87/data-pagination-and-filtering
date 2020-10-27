@@ -23,13 +23,18 @@ This function will create and insert/append the elements needed to display a "pa
 const studentsPerPage = 9;
 
 
-
-function createElement(elementName, property, value) {
+// creates element and sets property
+function createElement( elementName, property, value ) {
    let element = document.createElement(elementName);
    element[property] = value;
    return element;
 }
-
+// appends child(ren) to parent
+function append( elementName, array ) {
+   for ( let i = 0; i < array.length; i++ ) {
+      elementName.appendChild(array[i])
+   }
+}
 
 // creates showPage function to create and insert/append elements needed to display a "page" of nine students
 function showPage( list, pageParameter ) {
@@ -39,7 +44,6 @@ function showPage( list, pageParameter ) {
  studentList.innerHTML = '';
  for ( let i = 0; i < list.length; i++ ) {
    if ( i >= startIndex && i <= endIndex ) {
-
       // creates li
       let li = createElement('li', 'className', 'student-item cf');
 
@@ -58,24 +62,22 @@ function showPage( list, pageParameter ) {
       let spanEmail = createElement('spanEmail', 'className', 'email');
       spanEmail.innerHTML = `${list[i].email}`;
 
-      // creates student div for email, h3 and img
+      // creates student div with img, h3 and email span
       let divStudent = createElement('div', 'className', 'student-details');
-      divStudent.appendChild(img);
-      divStudent.appendChild(h3);
-      divStudent.appendChild(spanEmail);
+      append(divStudent, [img, h3, spanEmail]);
 
       // creates joined div for joined date
       let divJoined = createElement('div', 'className', 'joined-details');
       let spanDate = createElement('span', 'className', 'date');
       spanDate.innerHTML = `Joined ${list[i].registered.date}`
-      divJoined.appendChild(spanDate);
+      append(divJoined, [spanDate]);
 
       // appends student and joined div to li
-      li.appendChild(divStudent);
-      li.appendChild(divJoined);
-
+      append(li, [divStudent, divJoined]);
+      
       // appends li to main student list
-      studentList.appendChild(li);
+      append(studentList, [li]);
+
    }
 
  }
