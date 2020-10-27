@@ -24,6 +24,7 @@ const studentsPerPage = 9;
 
 
 function showPage( list, pageParameter ) {
+
  const startIndex = ( pageParameter * studentsPerPage ) - studentsPerPage;
  const endIndex = ( pageParameter * studentsPerPage) - 1;
  const studentList = document.querySelector('.student-list');
@@ -39,18 +40,18 @@ function showPage( list, pageParameter ) {
       let img = document.createElement('img');
       img.className = 'avatar';
 
-      img.src = `${data[i].picture.large}`;
+      img.src = `${list[i].picture.large}`;
       img.alt = `Profile Picture`;
 
       let h3 = document.createElement('h3');
-      const firstName = data[i].name.first;
-      const lastName = data[i].name.last;
+      const firstName = list[i].name.first;
+      const lastName = list[i].name.last;
 
       h3.innerHTML = `${firstName} ${lastName}`;
 
       let spanEmail = document.createElement('span');
       spanEmail.className = `email`;
-      spanEmail.innerHTML = `${data[i].email}`;
+      spanEmail.innerHTML = `${list[i].email}`;
 
       let divStudent = document.createElement('div');
       divStudent.className = `student-details`;
@@ -64,7 +65,7 @@ function showPage( list, pageParameter ) {
 
       let spanDate = document.createElement('span');
       spanDate.className = `date`;
-      spanDate.innerHTML = `Joined ${data[i].registered.date}`
+      spanDate.innerHTML = `Joined ${list[i].registered.date}`
       divJoined.appendChild(spanDate);
 
       li.appendChild(divStudent);
@@ -132,4 +133,21 @@ buttonSearch.appendChild(img);
 label.appendChild(input);
 label.appendChild(buttonSearch);
 header.appendChild(label);
+
+buttonSearch.addEventListener( 'click', (e) => {
+   let inputSearch = input.value;
+   let searchResult = [];
+   for ( let i = 0; i < data.length; i++ ) {
+      if ( data[i].name.first.toLowerCase() === inputSearch.toLowerCase() || data[i].name.last.toLowerCase() === inputSearch.toLowerCase()) {
+         searchResult.push(data[i]);
+      }
+   }  
+   console.log(searchResult);
+   showPage(searchResult, 1);
+   addPagination( searchResult );
+
+   } 
+)
+
+
 
